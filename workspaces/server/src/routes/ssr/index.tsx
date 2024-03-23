@@ -84,7 +84,6 @@ app.get('*', async (c) => {
 
     const styleTags = sheet.getStyleTags();
     const html = await createHTML({ body, injectData, styleTags });
-
     return c.html(html);
   } catch (cause) {
     throw new HTTPException(500, { cause, message: 'SSR error.' });
