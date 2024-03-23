@@ -60,7 +60,7 @@ export default defineConfig(async (): Promise<Options[]> => {
       outDir: OUTPUT_DIR,
       platform: 'browser',
       shims: true,
-      sourcemap: IS_DEVELOP ? 'inline' : false,
+      sourcemap: IS_DEVELOP ? true : false,
       splitting: false,
       target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       treeshake: false,
