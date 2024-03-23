@@ -2,9 +2,7 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Box } from '../components/Box';
-import { Container } from '../components/Container';
 import { Flex } from '../components/Flex';
-import { Footer } from '../components/Footer';
 import { Color, Space } from '../styles/variables';
 
 const _Header = styled.header`
@@ -19,7 +17,7 @@ type Props = {
 
 export const ActionLayout: React.FC<Props> = ({ leftContent, rightContent }) => {
   return (
-    <Container>
+    <>
       <_Header>
         <Flex align="center" justify="space-between">
           {leftContent}
@@ -30,8 +28,6 @@ export const ActionLayout: React.FC<Props> = ({ leftContent, rightContent }) => 
       <Box as="main" height="100%" py={Space * 2}>
         <Outlet />
       </Box>
-
-      <Footer />
-    </Container>
+    </>
   );
 };
