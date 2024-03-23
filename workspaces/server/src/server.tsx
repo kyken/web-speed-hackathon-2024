@@ -7,7 +7,9 @@ async function main() {
   await seeding();
 
   serve({ fetch: app.fetch, port: Number(process.env['PORT']) || 8000 }, (info) => {
-    console.log(`listening on ${info.address}:${info.port}`);
+    // eslint-disable-next-line no-constant-condition
+    const address = (info.address = '0.0.0.0' ? 'http://localhost' : info.address);
+    console.log(`listening on ${address}:${info.port}`);
   });
 }
 
