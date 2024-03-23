@@ -5,6 +5,8 @@ import * as yup from 'yup';
 
 import { useLogin } from '../../../features/auth/hooks/useLogin';
 
+const passwordRegex = /^[0-9a-zA-Z]+$/;
+
 export const LoginContent: React.FC = () => {
   const login = useLogin();
   const loginContentA11yId = useId();
@@ -17,20 +19,18 @@ export const LoginContent: React.FC = () => {
     async onSubmit(values) {
       login.mutate({ email: values.email, password: values.password });
     },
+    validateOnChange: false,
     validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .required('メールアドレスを入力してください')
-        .test({
-          message: 'メールアドレスには @ を含めてください',
-          test: (v) => /^(?:[^@]*){12,}$/v.test(v) === false,
-        }),
+      email: yup.string().email('メールアドレスには @ を含めてください').required('メールアドレスを入力してください'),
       password: yup
         .string()
         .required('パスワードを入力してください')
         .test({
           message: 'パスワードには記号を含めてください',
-          test: (v) => /^(?:[^\P{Letter}&&\P{Number}]*){24,}$/v.test(v) === false,
+          test: (v) => {
+            const result = passwordRegex.test(v) === false;
+            return result;
+          },
         }),
     }),
   });
