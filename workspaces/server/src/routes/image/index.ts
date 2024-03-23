@@ -5,7 +5,6 @@ import path from 'node:path';
 
 import { zValidator } from '@hono/zod-validator';
 import { Hono } from 'hono';
-import { compress } from 'hono/compress';
 import { HTTPException } from 'hono/http-exception';
 import { Image } from 'image-js';
 import { z } from 'zod';
@@ -63,8 +62,6 @@ const IMAGE_CONVERTER: Record<SupportedImageExtension, ConverterInterface> = {
 };
 
 const app = new Hono();
-
-app.use(compress());
 
 app.get(
   '/images/:imageFile',
