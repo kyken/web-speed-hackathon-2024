@@ -8,21 +8,14 @@ type Params = {
   target: string;
 };
 
-// ひらがな・カタカナ・半角・全角を区別せずに文字列が含まれているかを調べる
+// https://qiita.com/mimoe/items/855c112625d39b066c9a
+const kanaToHira = (str: string) => {
+  return str.replace(/[\u30a1-\u30f6]/g, function (match: string) {
+    const chr = match.charCodeAt(0) - 0x60;
+    return String.fromCharCode(chr);
+  });
+};
+
 export function isContains({ query, target }: Params): boolean {
-  return target.includes(query);
-  // target の先頭から順に query が含まれているかを調べる
-  // TARGET_LOOP: for (let offset = 0; offset <= target.length - query.length; offset++) {
-  //   for (let idx = 0; idx < query.length; idx++) {
-  //     // 1文字ずつ Unicode Collation Algorithm で比較する
-  //     // unicode-collation-algorithm2 は Default Unicode Collation Element Table (DUCET) を collation として使う
-  //     if (compareWithFlags(target[offset + idx]!, query[idx]!, SENSITIVITY_ACCENT_FLAG) !== 0) {
-  //       continue TARGET_LOOP;
-  //     }
-  //   }
-  //   // query のすべての文字が含まれていたら true を返す
-  //   return true;
-  // }
-  // // target の最後まで query が含まれていなかったら false を返す
-  // return false;
+  return kanaToHira(target).normalize('NFKC').includes(kanaToHira(query).normalize('NFKC'));
 }
