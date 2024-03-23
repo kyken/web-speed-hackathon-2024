@@ -7,6 +7,7 @@ import { defineConfig } from 'tsup';
 export default defineConfig(async (): Promise<Options[]> => {
   const PACKAGE_DIR = (await findPackageDir(process.cwd()))!;
   const OUTPUT_DIR = path.resolve(PACKAGE_DIR, './dist');
+  const IS_DEVELOP = !!process.env['IS_DEVELOP'];
 
   return [
     {
@@ -21,12 +22,12 @@ export default defineConfig(async (): Promise<Options[]> => {
         NODE_ENV: process.env['NODE_ENV'] || 'development',
       },
       format: 'cjs',
-      metafile: true,
+      metafile: false,
       minify: false,
       noExternal: [/@wsh-2024\/.*/],
       outDir: OUTPUT_DIR,
       shims: true,
-      sourcemap: true,
+      sourcemap: IS_DEVELOP,
       splitting: false,
       target: 'node18',
       treeshake: false,

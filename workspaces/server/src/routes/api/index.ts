@@ -7,6 +7,7 @@ import { bookApp } from './books';
 import { episodePageApp } from './episodePages';
 import { episodeApp } from './episodes';
 import { featureApp } from './features';
+import { foundationApp } from './foundations';
 import { imageApp } from './images';
 import { internalApp } from './internal';
 import { rankingApp } from './rankings';
@@ -39,5 +40,6 @@ app.route('/', rankingApp);
 app.route('/', authApp);
 
 app.route('/', internalApp);
+app.route('/', foundationApp);
 
 export { app as apiApp };

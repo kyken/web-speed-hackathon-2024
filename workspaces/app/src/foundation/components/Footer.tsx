@@ -1,13 +1,11 @@
 import { useSetAtom } from 'jotai';
-import React, { useId } from 'react';
+import React, { Suspense, useId } from 'react';
+import { inject } from 'regexparam';
 import styled from 'styled-components';
+import useSWR from 'swr';
 
+import { apiClient } from '../../lib/api/apiClient';
 import { DialogContentAtom } from '../atoms/DialogContentAtom';
-import { COMPANY } from '../constants/Company';
-import { CONTACT } from '../constants/Contact';
-import { OVERVIEW } from '../constants/Overview';
-import { QUESTION } from '../constants/Question';
-import { TERM } from '../constants/Term';
 import { Color, Space, Typography } from '../styles/variables';
 
 import { Box } from './Box';
@@ -23,6 +21,25 @@ const _Button = styled(Button)`
 const _Content = styled.section`
   white-space: pre-line;
 `;
+
+const FoundationTextComponent: React.FC<{ type: 'term' | 'contact' | 'question' | 'company' | 'overview' }> = ({
+  type,
+}) => {
+  const { data: TEXT } = useSWR(
+    type,
+    async () => {
+      const response = await apiClient.get<string>(inject(`/api/v1/foundations/${type}`, {}));
+      return response.data;
+    },
+    { suspense: true },
+  );
+
+  return (
+    <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
+      {TEXT}
+    </Text>
+  );
+};
 
 export const Footer: React.FC = () => {
   const [isClient, setIsClient] = React.useState(false);
@@ -46,9 +63,9 @@ export const Footer: React.FC = () => {
           利用規約
         </Text>
         <Spacer height={Space * 1} />
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {TERM}
-        </Text>
+        <Suspense fallback={'loading...'}>
+          <FoundationTextComponent type={'term'} />
+        </Suspense>
       </_Content>,
     );
   };
@@ -60,9 +77,9 @@ export const Footer: React.FC = () => {
           お問い合わせ
         </Text>
         <Spacer height={Space * 1} />
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {CONTACT}
-        </Text>
+        <Suspense fallback={'loading...'}>
+          <FoundationTextComponent type={'contact'} />
+        </Suspense>
       </_Content>,
     );
   };
@@ -74,9 +91,9 @@ export const Footer: React.FC = () => {
           Q&A
         </Text>
         <Spacer height={Space * 1} />
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {QUESTION}
-        </Text>
+        <Suspense fallback={'loading...'}>
+          <FoundationTextComponent type={'question'} />
+        </Suspense>
       </_Content>,
     );
   };
@@ -88,9 +105,9 @@ export const Footer: React.FC = () => {
           運営会社
         </Text>
         <Spacer height={Space * 1} />
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {COMPANY}
-        </Text>
+        <Suspense fallback={'loading...'}>
+          <FoundationTextComponent type={'company'} />
+        </Suspense>
       </_Content>,
     );
   };
@@ -102,9 +119,9 @@ export const Footer: React.FC = () => {
           Cyber TOONとは
         </Text>
         <Spacer height={Space * 1} />
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {OVERVIEW}
-        </Text>
+        <Suspense fallback={'loading...'}>
+          <FoundationTextComponent type={'overview'} />
+        </Suspense>
       </_Content>,
     );
   };

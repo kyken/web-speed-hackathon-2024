@@ -16,6 +16,8 @@ export default defineConfig(async (): Promise<Options[]> => {
   const SEED_IMAGE_DIR = path.resolve(WORKSPACE_DIR, './workspaces/server/seeds/images');
   const IMAGE_PATH_LIST = fs.readdirSync(SEED_IMAGE_DIR).map((file) => `/images/${file}`);
 
+  const IS_DEVELOP = !!process.env['IS_DEVELOP'];
+
   return [
     {
       bundle: true,
@@ -53,12 +55,12 @@ export default defineConfig(async (): Promise<Options[]> => {
         '.json?file': 'file',
         '.wasm': 'binary',
       },
-      metafile: true,
+      metafile: false,
       minify: false,
       outDir: OUTPUT_DIR,
       platform: 'browser',
       shims: true,
-      sourcemap: 'inline',
+      sourcemap: IS_DEVELOP ? true : false,
       splitting: false,
       target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       treeshake: false,
