@@ -107,7 +107,7 @@ export const HeroImage: React.FC = () => {
   return (
     <_Wrapper>
       {/* <_Image ref={imageRef} alt="Cyber TOON" /> */}
-      <img src="assets/top.png" width={'100%'} />
+      <img src="assets/top.webp" width={'100%'} />
     </_Wrapper>
   );
 };
