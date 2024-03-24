@@ -17,5 +17,5 @@ const kanaToHira = (str: string) => {
 };
 
 export function isContains({ query, target }: Params): boolean {
-  return kanaToHira(target).normalize('NFKC').includes(kanaToHira(query).normalize('NFKC'));
+  return kanaToHira(target).normalize('NFKC').toUpperCase().includes(kanaToHira(query).normalize('NFKC').toUpperCase());
 }
