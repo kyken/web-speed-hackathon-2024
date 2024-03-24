@@ -1,9 +1,11 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 
-import { initializeApp } from './initialize';
+import { initializeGetApp } from './initializeGet';
+import { initializePostApp } from './initializePost';
 
 const app = new OpenAPIHono();
 
-app.route('/', initializeApp);
+app.route('/', initializeGetApp);
+app.route('/', initializePostApp);
 
 export { app as internalApp };

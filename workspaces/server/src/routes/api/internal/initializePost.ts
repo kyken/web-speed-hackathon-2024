@@ -31,4 +31,4 @@ app.openapi(route, async (c) => {
   }
 });
 
-export { app as initializeApp };
+export { app as initializePostApp };
