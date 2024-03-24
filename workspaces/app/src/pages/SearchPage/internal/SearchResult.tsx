@@ -18,9 +18,13 @@ export const SearchResult: React.FC<Props> = ({ books, keyword }) => {
     if (keyword === '') {
       return books;
     }
-    return books.filter((book) => {
-      return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
-    });
+    return books
+      .filter((book) => {
+        return (
+          isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby })
+        );
+      })
+      .slice(0, 5);
   }, [books, keyword]);
 
   return (

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import { Suspense, useId } from 'react';
+import { useId } from 'react';
 
 import { BookCard } from '../../features/book/components/BookCard';
 import { FeatureCard } from '../../features/feature/components/FeatureCard';
@@ -20,8 +20,8 @@ import { CoverSection } from './internal/CoverSection';
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr(moment());
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
-  const { data: featureList } = useFeatureList({ query: {} });
-  const { data: rankingList } = useRankingList({ query: {} });
+  const { data: featureList } = useFeatureList({ query: { limit: 5 } });
+  const { data: rankingList } = useRankingList({ query: { limit: 5 } });
 
   const pickupA11yId = useId();
   const rankingA11yId = useId();
@@ -84,11 +84,7 @@ const TopPage: React.FC = () => {
 };
 
 const TopPageWithSuspense: React.FC = () => {
-  return (
-    <Suspense fallback={'loading'}>
-      <TopPage />
-    </Suspense>
-  );
+  return <TopPage />;
 };
 
 export { TopPageWithSuspense as TopPage };

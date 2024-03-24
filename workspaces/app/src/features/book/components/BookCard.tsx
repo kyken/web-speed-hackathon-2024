@@ -52,10 +52,10 @@ const BookCard: React.FC<Props> = ({ book }) => {
           <_AvatarWrapper>
             <SuspenseImage
               alt={book.image.alt}
-              height={128}
+              height={32}
               imageId={book.author.image.id}
               objectFit="cover"
-              width={192}
+              width={32}
             />
           </_AvatarWrapper>
           <Text color={Color.MONO_100} typography={Typography.NORMAL12}>

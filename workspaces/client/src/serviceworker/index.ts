@@ -2,7 +2,7 @@
 import PQueue from 'p-queue';
 
 // import { jitter } from './jitter';
-import { jitter } from './jitter';
+// import { jitter } from './jitter';
 import { transformJpegXLToBmp } from './transformJpegXLToBmp';
 import { zstdFetch as fetch } from './zstdFetch';
 
@@ -39,7 +39,6 @@ async function onFetch(request: Request): Promise<Response> {
     if (cacheMatchResponse) {
       return cacheMatchResponse;
     }
-    await jitter();
     const res = await fetch(request);
     if (res.headers.get('Content-Type') === 'image/jxl') {
       const transformedResponse = await transformJpegXLToBmp(res);

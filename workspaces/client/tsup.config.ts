@@ -56,7 +56,7 @@ export default defineConfig(async (): Promise<Options[]> => {
         '.wasm': 'binary',
       },
       metafile: false,
-      minify: false,
+      minify: !IS_DEVELOP,
       outDir: OUTPUT_DIR,
       platform: 'browser',
       shims: true,
