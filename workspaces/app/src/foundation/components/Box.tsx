@@ -9,6 +9,8 @@ const _Box = styled.div<{
   $backgroundColor?: string;
   $bottom?: number;
   $color?: string;
+  $containIntrinsicSize?: CSS.Property.ContainIntrinsicSize;
+  $contentVisibility?: CSS.Property.ContentVisibility;
   $flexGrow?: CSS.Property.FlexGrow;
   $flexShrink?: CSS.Property.FlexShrink;
   $height?: number | string;
@@ -64,6 +66,8 @@ const _Box = styled.div<{
   right: ${({ $right }) => addUnitIfNeeded($right)};
   top: ${({ $top }) => addUnitIfNeeded($top)};
   width: ${({ $width }) => addUnitIfNeeded($width)};
+  content-visibility: ${({ $contentVisibility }) => $contentVisibility};
+  contain-intrinsic-size: ${({ $containIntrinsicSize }) => addUnitIfNeeded($containIntrinsicSize)};
 `;
 
 type Props = {
@@ -74,6 +78,8 @@ type Props = {
   bottom?: number;
   children: React.ReactNode;
   color?: Color;
+  containIntrinsicSize?: CSS.Property.ContainIntrinsicSize;
+  contentVisibility?: CSS.Property.ContentVisibility;
   flexGrow?: CSS.Property.FlexGrow;
   flexShrink?: CSS.Property.FlexShrink;
   height?: number | string;
@@ -112,6 +118,8 @@ export const Box: React.FC<Props> = ({
   bottom,
   children,
   color,
+  containIntrinsicSize,
+  contentVisibility,
   flexGrow,
   flexShrink,
   height,
@@ -146,6 +154,8 @@ export const Box: React.FC<Props> = ({
       $backgroundColor={backgroundColor}
       $bottom={bottom}
       $color={color}
+      $containIntrinsicSize={containIntrinsicSize}
+      $contentVisibility={contentVisibility}
       $flexGrow={flexGrow}
       $flexShrink={flexShrink}
       $height={height}

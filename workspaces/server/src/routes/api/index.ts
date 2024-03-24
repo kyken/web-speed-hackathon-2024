@@ -1,7 +1,7 @@
 import { swaggerUI } from '@hono/swagger-ui';
 import { OpenAPIHono } from '@hono/zod-openapi';
 
-import { cacheControlMiddleware } from '../../middlewares/cacheControlMiddleware';
+// import { cacheControlMiddleware } from '../../middlewares/cacheControlMiddleware';
 
 import { authApp } from './auth';
 import { authorApp } from './authors';

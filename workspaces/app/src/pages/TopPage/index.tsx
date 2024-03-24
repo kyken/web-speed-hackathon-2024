@@ -65,7 +65,14 @@ const TopPage: React.FC = () => {
 
         <Spacer height={Space * 2} />
 
-        <Box aria-labelledby={todayA11yId} as="section" maxWidth="100%" width="100%">
+        <Box
+          aria-labelledby={todayA11yId}
+          as="section"
+          containIntrinsicSize={'320px'}
+          contentVisibility="auto"
+          maxWidth="100%"
+          width="100%"
+        >
           <Text as="h2" color={Color.MONO_100} id={todayA11yId} typography={Typography.NORMAL20} weight="bold">
             本日更新
           </Text>
