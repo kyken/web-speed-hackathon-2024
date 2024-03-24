@@ -24,7 +24,7 @@ type Props = {
 
 type PropsWithFetch = Props & { imageId: string };
 
-export const Image: React.FC<Props> = ({ height, loading = 'eager', objectFit, width, ...rest }) => {
+export const Image: React.FC<Props> = ({ height, loading = 'lazy', objectFit, width, ...rest }) => {
   return <_Image {...rest} $height={height} $objectFit={objectFit} $width={width} loading={loading} />;
 };
 
