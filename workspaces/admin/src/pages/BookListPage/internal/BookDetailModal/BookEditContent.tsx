@@ -87,7 +87,6 @@ export const BookEditContent: React.FC<BookEditContentProps> = ({ book, onEditCo
         <Flex align="center" pb={2}>
           <Box flexShrink={0} position="relative">
             <Image aspectRatio="3 / 4" height={256} objectFit="cover" src={avatorUrl} width={192} />
-
             <FormControl
               alignItems="center"
               bg="rgba(0, 0, 0, 0.5)"
