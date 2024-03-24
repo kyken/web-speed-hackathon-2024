@@ -2,12 +2,13 @@
 import PQueue from 'p-queue';
 
 // import { jitter } from './jitter';
+import { jitter } from './jitter';
 import { transformJpegXLToBmp } from './transformJpegXLToBmp';
 import { zstdFetch as fetch } from './zstdFetch';
 
 // ServiceWorker が負荷で落ちないように並列リクエスト数を制限する
 const queue = new PQueue({
-  concurrency: 5,
+  concurrency: 10,
 });
 
 const cacheName = 'image-cache-v1';
@@ -30,15 +31,15 @@ self.addEventListener('fetch', (ev: FetchEvent) => {
 
 async function onFetch(request: Request): Promise<Response> {
   // サーバーの負荷を分散するために Jitter 処理をいれる
-  // await jitter();
+  //
   // const cacheMatch = await caches.match(request)
-  console.log(request.url);
-  console.log(request.method);
+
   if (request.url.includes('/images/') && request.method === 'GET') {
     const cacheMatchResponse = await caches.match(request);
     if (cacheMatchResponse) {
       return cacheMatchResponse;
     }
+    await jitter();
     const res = await fetch(request);
     if (res.headers.get('Content-Type') === 'image/jxl') {
       const transformedResponse = await transformJpegXLToBmp(res);
@@ -53,10 +54,4 @@ async function onFetch(request: Request): Promise<Response> {
   } else {
     return await fetch(request);
   }
-
-  // if (res.headers.get('Content-Type') === 'image/jxl') {
-  //   return transformJpegXLToBmp(res);
-  // } else {
-  //   return res;
-  // }
 }
